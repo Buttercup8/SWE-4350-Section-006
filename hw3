@@ -1,0 +1,173 @@
+import time
+from typing import KeysView
+start = time.time()
+
+
+
+for x in range(1, 101):
+    if x % 3== 0 and x % 5== 0: 
+        print('Fizzbuzz')
+
+    elif x % 3 == 0:
+        print('Fizz') 
+
+    elif x % 5 == 0:
+        print('Buzz')
+
+    else:
+        print(x)
+
+seconds = time.time () - start
+print ('It took,', seconds , 'seconds to execute the program')
+
+
+import math
+def volumeOfSphere(R):
+    return (4/3) * math.pi * R * R *R
+R = float(input ( "Please enter the radius!"))
+V = volumeOfSphere(R)
+print("The volume will be:  ", V)  
+
+
+
+def  getCsv(booksDict, csvFile):
+    keys = list(booksDict.keys())
+    items = booksDict[keys[0]]
+    f = open(csvFile, "w")
+
+    for j in range(len(items)):
+        prt = ""
+
+        for key in booksDict:
+            prt += booksDict[key][j] +"," 
+
+ 
+        f.write(prt[:-1]+"\n")
+
+    f.close()
+    print("\nBooks data have been written to the file", csvFile, "\n")
+
+def getDict(fname):
+
+
+    try:
+        fhand = open(fname)           #opening the file and storing the control to fhand
+    except:
+        print("can't open the file!!: " + fname)              #Exepction handling
+        exit()
+    
+    books = {
+        "Title" : [],
+        "Author" : [],
+        "ISBN13" : [],
+        "Pages" : []
+    }                  #dictionary initialization
+    
+    lineNum = 1
+    
+    for line in fhand:
+
+        if(line[-1] == "\n"):
+            line = line[:-1]
+
+        records = list(map(str, line.split(",")))        #separate dictionary  
+
+        if lineNum == 1:
+
+            lineNum +=1    
+
+        else:
+            # append data
+            books["Title"].append(records[0])   
+            books["Author"].append(records[1])    
+            books["ISBN13"].append(records[2])   
+            books["Pages"].append(records[3]) 
+
+
+    f = open(fname, "w")
+    f.write("")
+    f.close()
+    return books           
+
+if __name__ == "__main__":
+
+    inpCsv = input("\nPlease enter the csv file: ")
+
+    print("\nFollowing is the returned Dictionary: \n\n",getDict(inpCsv), "\n")
+
+def readWrite(booksDict, csvFile):
+
+    keys = list(booksDict.keys())
+    items = booksDict[keys[0]]
+
+    f = open(csvFile, "w")
+
+    for j in range(len(items)):
+
+        prt = ""
+
+        for key in booksDict:
+
+            prt += booksDict[key][j] +"," 
+
+ 
+        f.write(prt[:-1]+"\n")
+
+
+    f.close()
+
+    print("\nBooks data have been written to the file", csvFile, "\n")  
+
+
+    try:
+        fhand = open(csvFile)           #opening the file and storing the control to fhand
+    except:
+        print("can't open the file!!: " + csvFile)              #Exepction handling
+        exit()
+    
+    books = {
+        "Title" : [],
+        "Author" : [],
+        "ISBN13" : [],
+        "Pages" : []
+    }                 
+    
+    lineNum = 1
+    
+    for line in fhand:
+
+        if(line[-1] == "\n"):
+            line = line[:-1]
+
+        records = list(map(str, line.split(",")))    
+
+        if lineNum == 1:
+
+            lineNum +=1    
+
+        else:
+
+            books["Title"].append(records[0])   
+            books["Author"].append(records[1])    
+            books["ISBN13"].append(records[2])   
+            books["Pages"].append(records[3]) 
+
+
+    f = open(csvFile, "w")
+    f.write("")
+    f.close()
+
+    print("\nDictionary object has been created, \n\nData has been deleted from the temporary file!!!")
+
+    return books           
+
+
+
+if __name__ == "__main__":
+    
+    booksDict = {'Title': ['1984', 'Animal Farm', 'Brave New World', 'Fahrenheit 451', 'Jane Eyre', 'Wuthering Heights', 'Agnes Grey', 'Walden', 'Walden Two', '"Eats Shoots & Leaves"'], 'Author': [' George Orwell', ' George Orwell', ' Aldous Huxley', ' Ray Bradbury', ' Charlotte BrontÃ«', ' Emily BrontÃ«', ' Anne BrontÃ«', ' Henry David Thoreau', ' B. F. Skinner', ' Lynne Truss'], 'ISBN13': [' 978-0451524935', ' 978-0451526342',
+    ' 978-0060929879', ' 978-0345342966', ' 978-0142437209', ' 978-0141439556', '978-1593083236', ' 978-1420922615', ' 978-0872207783', ' 978-1592400874'], 'Pages': [' 268', ' 144', ' 288', ' 208', '532', ' 416', ' 256', ' 156', ' 301', '209']}
+
+    returnedDict = readWrite(booksDict, "outputBooks.csv")
+
+    print("\nFollowing is the dictionary: \n\n", returnedDict, "\n")
